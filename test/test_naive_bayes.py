@@ -21,7 +21,6 @@ class TestBNN(unittest.TestCase):
     def testAgainstSklearn(self):
         X = np.random.randint(2, size=(6, 500))
         y = np.random.randint(2, size=(6, 1))
-        y1 = y.reshape(6, 1)
 
         from sklearn.naive_bayes import BernoulliNB
 

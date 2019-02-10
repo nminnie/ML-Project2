@@ -23,7 +23,7 @@ class BernoulliNaiveBayes(BaseEstimator, ClassifierMixin):
         n, m = X.shape
         assert y.shape == (n, 1), "Incorrect target dimension"
         assert (np.unique(X) == [0, 1]).all(), "X should be binary"
-        assert (np.unique(y) == [0, 1]).all(), "X should be binary"
+        assert (np.unique(y) == [0, 1]).all(), "y should be binary"
 
         clazz = np.array([0, 1])
 
