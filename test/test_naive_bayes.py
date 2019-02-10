@@ -17,3 +17,20 @@ class TestBNN(unittest.TestCase):
         y_pred = nv.predict(X_new)
 
         self.assertTrue((y_pred == y_exact).all())
+
+    def testAgainstSklearn(self):
+        X = np.random.randint(2, size=(6, 500))
+        y = np.random.randint(2, size=(6, 1))
+        y1 = y.reshape(6, 1)
+
+        from sklearn.naive_bayes import BernoulliNB
+
+        skl_nb = BernoulliNB()
+        skl_nb.fit(X, np.ravel(y))
+        y_sklearn = skl_nb.predict(X)
+
+        nv = BernoulliNaiveBayes()
+        nv.fit(X, y)
+        y_pred = np.ravel(nv.predict(X)).T
+
+        self.assertTrue((y_sklearn == y_pred).all())
