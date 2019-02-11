@@ -28,18 +28,22 @@ def load_data_raw(train_path='../data/train', test_path='../data/test', persist=
     # test.set_index('Id', inplace=True)
 
     if persist:
-        pickle.dump((train, test), open('../data/dataset.dat', 'wb'))
+        pickle.dump(train, open('../data/train.pkl', 'wb'))
+        pickle.dump(test, open('../data/test.pkl', 'wb'))
 
     return train, test
 
 
 def load_data_persisted():
-    assert os.path.exists('../data/dataset.dat'), 'cannot find dataset'
-    return pickle.load(open('../data/dataset.dat', 'rb'))
+    assert os.path.exists('../data/train.pkl'), 'cannot find train data'
+    assert os.path.exists('../data/test.pkl'), 'cannot find test data'
+    train = pd.read_pickle('../data/train.pkl')
+    test = pd.read_pickle('../data/test.pkl')
+    return train, test
 
 
 def load_data():
-    if os.path.exists('../data/dataset.dat'):
+    if os.path.exists('../data/train.pkl') and os.path.exists('../data/test.pkl'):
         return load_data_persisted()
     else:
         return load_data_raw()

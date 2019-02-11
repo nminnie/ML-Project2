@@ -21,4 +21,6 @@ Download data set
 
 ## Running
 
+_Note: for executing the stemming, the [Punkt Sentence Tokenizer](https://www.nltk.org/_modules/nltk/tokenize/punkt.html) is necessary. It is downloaded automatically._
+
 ## Reproducibility
