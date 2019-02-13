@@ -1,5 +1,6 @@
 from sklearn.base import BaseEstimator, ClassifierMixin
 import numpy as np
+from scipy.sparse import issparse
 
 
 class BernoulliNaiveBayes(BaseEstimator, ClassifierMixin):
@@ -20,7 +21,12 @@ class BernoulliNaiveBayes(BaseEstimator, ClassifierMixin):
         :param y: target variable [n:instances, 1]
         :return: self
         '''
+        # TODO: use sparse matrix to improve calculations.
+        if issparse(X):
+            raise TypeError('BernoulliNaiveBayes does not support sparse input.')
+
         n, m = X.shape
+        y = y[:, np.newaxis] if len(y.shape) == 1 else y
         assert y.shape == (n, 1), "Incorrect target dimension"
         assert (np.unique(X) == [0, 1]).all(), "X should be binary"
         assert (np.unique(y) == [0, 1]).all(), "y should be binary"
