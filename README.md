@@ -21,6 +21,11 @@ Download data set
 
 ## Running
 
+Once you've downloaded the data, you can reproduce the experiments done using the notebook provided.
+
+At the end, you can make a submission with the best model found, executing `sh make_submisson.sh`
+
+
 _Note: for executing the stemming, the [Punkt Sentence Tokenizer](https://www.nltk.org/_modules/nltk/tokenize/punkt.html) is necessary. It is downloaded automatically._
 
 ## Reproducibility
