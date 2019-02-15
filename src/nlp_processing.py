@@ -2,6 +2,8 @@ from sklearn.feature_extraction.text import CountVectorizer
 from nltk.stem import PorterStemmer
 import nltk
 import numpy as np
+from bs4 import BeautifulSoup
+import re
 
 try:
     nltk.data.find('tokenizers/punkt')
@@ -10,7 +12,7 @@ except LookupError:
 
 
 class LemmaCountVectorizer(CountVectorizer):
-    def __init__(self, stem=False, input='content', encoding='utf-8',
+    def __init__(self, stem=False, preprocessing=False, input='content', encoding='utf-8',
                  decode_error='strict', strip_accents=None,
                  lowercase=True, preprocessor=None, tokenizer=None,
                  stop_words=None, token_pattern=r"(?u)\b\w\w+\b",
@@ -26,10 +28,20 @@ class LemmaCountVectorizer(CountVectorizer):
                                                    max_df, min_df, max_features,
                                                    vocabulary, binary, dtype)
         self.stem = stem
+        self.preprocessing = preprocessing
 
     def build_preprocessor(self):
         preprocessor = super().build_preprocessor()
+
         if self.stem:
             stemmer = PorterStemmer()
+            if self.preprocessing:
+                return lambda doc: stemmer.stem(self.__remove_noise__(preprocessor(doc)))
             return lambda doc: stemmer.stem(preprocessor(doc))
+        elif self.preprocessing:
+            return lambda doc: self.__remove_noise__(preprocessor(doc))
         return preprocessor
+
+    def __remove_noise__(self, doc):
+        review_text = BeautifulSoup(doc).get_text() # remove HTML
+        return re.sub("[^a-zA-Z]", " ", review_text) # remove non-words
