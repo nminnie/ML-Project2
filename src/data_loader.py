@@ -16,14 +16,14 @@ def load_data_raw(train_path='../data/train', test_path='../data/test', persist=
     for target in labels.keys():
         for file in os.listdir('%s/%s/' % (train_path, target)):
             id = file.replace('.txt', '')
-            with open('%s/%s/%s' % (train_path, target, file)) as fp:
+            with open('%s/%s/%s' % (train_path, target, file), errors='ignore') as fp:
                 train = train.append({'Id': id, 'Text': fp.read(), 'Target': labels[target]}, ignore_index=True)
     # train.set_index('Id', inplace=True)
 
     # read test data
     for file in os.listdir(test_path):
         id = file.replace('.txt', '')
-        with open('%s/%s' % (test_path, file)) as fp:
+        with open('%s/%s' % (test_path, file), errors='ignore') as fp:
             test = test.append({'Id': id, 'Text': fp.read()}, ignore_index=True)
     # test.set_index('Id', inplace=True)
 
