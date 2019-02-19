@@ -32,16 +32,17 @@ class LemmaCountVectorizer(CountVectorizer):
 
     def build_preprocessor(self):
         preprocessor = super().build_preprocessor()
-
-        if self.stem:
-            stemmer = PorterStemmer()
-            if self.preprocessing:
-                return lambda doc: stemmer.stem(self.__remove_noise__(preprocessor(doc)))
-            return lambda doc: stemmer.stem(preprocessor(doc))
-        elif self.preprocessing:
+        if self.preprocessing:
             return lambda doc: self.__remove_noise__(preprocessor(doc))
         return preprocessor
 
+    def build_tokenizer(self):
+        tokenize = super().build_tokenizer()
+        stemmer = PorterStemmer()
+        if self.stem:
+            return lambda doc: [stemmer.stem(t) for t in tokenize(doc)]
+        return tokenize
+
     def __remove_noise__(self, doc):
-        review_text = BeautifulSoup(doc).get_text() # remove HTML
-        return re.sub("[^a-zA-Z]", " ", review_text) # remove non-words
+        review_text = BeautifulSoup(doc, 'html.parser').get_text()  # remove HTML
+        return re.sub("[^a-zA-Z]", " ", review_text)  # remove non-words
