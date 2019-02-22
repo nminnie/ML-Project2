@@ -43,5 +43,5 @@ class LemmaCountVectorizer(CountVectorizer):
         return preprocessor
 
     def __remove_noise__(self, doc):
-        review_text = BeautifulSoup(doc).get_text() # remove HTML
+        review_text = BeautifulSoup(doc, features="lxml").get_text() # remove HTML
         return re.sub("[^a-zA-Z]", " ", review_text) # remove non-words
