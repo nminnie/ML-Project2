@@ -3,6 +3,17 @@ COMP 551 [project 2](https://cs.mcgill.ca/~wlh/comp551/files/miniproject2_spec.p
 
 ## Project Structure
 
+- _src_ -> contains source code.
+    - _data_loader.py_: utility functions to load dataset
+    - _nlp_processing.py_: Custom `CountVectorizer` for preprocessing data
+    - _naive_bayes.py_: Implementation of Bernoulli Naïve Bayes
+    - _nbsvm.py_: Implementation of a variation SVM and NB [[1]](https://nlp.stanford.edu/pubs/sidaw12_simple_sentiment.pdf) and [[2]](https://github.com/Joshua-Chin/nbsvm).
+    - _models.ipynb_: Jupyter Notebook with most models implemented. 
+- _data_ -> this folder is created dinamically and is where datasets and models are stored.
+- _test_ -> sanity check of the implementation of Bernoulli Naïve Bayes.
+- _data_load.sh_: script to download dataset.
+- _make_submission.sh_: script to submit results to Kaggle.
+
 ## Installing
 
 ### Create environment
@@ -29,3 +40,19 @@ At the end, you can make a submission with the best model found, executing `sh m
 _Note: for executing the stemming, the [Punkt Sentence Tokenizer](https://www.nltk.org/_modules/nltk/tokenize/punkt.html) is necessary. It is downloaded automatically._
 
 ## Reproducibility
+
+The model in reported in Kaggle can be found in the section [**Best model in leaderboard**](http://localhost:8888/notebooks/src/models.ipynb#Best-model-in-leaderboard) of the notebook provided.
+
+The model is:
+
+```python
+best_pipeline = Pipeline([
+    ('vect', LemmaCountVectorizer(analyzer='word', binary=False, decode_error='strict',
+            encoding='utf-8', input='content', lowercase=True, max_df=6000, max_features=None, 
+            min_df=2, ngram_range=(1, 3), preprocessing=True, preprocessor=None, 
+            strip_accents='unicode', token_pattern='(?u)\\b\\w\\w+\\b', tokenizer=nltk.word_tokenize, 
+            vocabulary=None, stem=False)),
+    ('clf', NBSVM(beta=0.31925992753471094, alpha=1, C=0.40531603281740625, fit_intercept=False))
+])
+best_pipeline.fit(X_train, y_train)
+```
