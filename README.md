@@ -1,5 +1,7 @@
 # IMDB Sentiment Analysis
-COMP 551 [project 2](https://cs.mcgill.ca/~wlh/comp551/files/miniproject2_spec.pdf).
+## COMP 551 [project 2](https://cs.mcgill.ca/~wlh/comp551/files/miniproject2_spec.pdf).
+IMDb is one of the most popular online databases for movies and personalities, a platform where millions of users read and write movie reviews. This provides a large and diverse dataset for sentiment analysis. In this project, we were tasked to implement different classification models to predict the sentiment of IMDb reviews, either as positive or negative, using only text each review contains. The goal is to find the model with the highest accuracy and generalization. We trained different models using multiple combinations of text features and hyper-parameter settings for both the classifiers and the features, which we found could potentially impact the performance significantly. Every model was evaluated by k-fold cross validation to ensure the consistency of their performance. We found that our best performing model was the Naïve Bayes - Support Vector Machines classifier with bag of words, which reported an accuracy score of **91.880** on the [final test set](https://www.kaggle.com/c/comp-551-imbd-sentiment-classification/leaderboard).
+
 
 ## Project Structure
 
