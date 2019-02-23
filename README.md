@@ -10,7 +10,9 @@ IMDb is one of the most popular online databases for movies and personalities, a
     - _nlp_processing.py_: Custom `CountVectorizer` for preprocessing data
     - _naive_bayes.py_: Implementation of Bernoulli Naïve Bayes
     - _nbsvm.py_: Implementation of a variation SVM and NB [[1]](https://nlp.stanford.edu/pubs/sidaw12_simple_sentiment.pdf) and [[2]](https://github.com/Joshua-Chin/nbsvm).
-    - _models.ipynb_: Jupyter Notebook with most models implemented. 
+    - _models.ipynb_: Jupyter Notebook with most models implemented.
+    - _lstm_imdb.ipynb_: Jupyter Notebook with LSTM NN. 
+    **Note:** _We couldn't run this model because of the limitation of GPU, but we aim to work on it to test the accuracy._ 
 - _data_ -> this folder is created dinamically and is where datasets and models are stored.
 - _test_ -> sanity check of the implementation of Bernoulli Naïve Bayes.
 - _data_load.sh_: script to download dataset.
